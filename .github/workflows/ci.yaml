@@ -17,7 +17,7 @@ jobs:
           php-version: "8.2"
 
       - name: Install Composer
-        run: composer install --no-dev -no-interaction
+        run: composer install --no-dev --no-interaction
 
       - name: Install npm
         run: npm install && npm run build
