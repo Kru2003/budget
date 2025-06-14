@@ -48,5 +48,7 @@ jobs:
         run: php artisan migrate --force
 
       - name: Run tests
-        run: php artisan test
-        # run: ./vendor/bin/phpunit
+        run: ./vendor/bin/phpunit
+
+      - name: Run browser tests
+        run: php artisan dusk
