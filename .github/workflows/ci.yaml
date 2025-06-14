@@ -55,4 +55,5 @@ jobs:
           php artisan dusk:chrome-driver --detect
           ./vendor/laravel/dusk/bin/chromedriver-linux --port=9515 &
           php artisan serve --no-reload &
+          timeout 15 bash -c 'until curl -s http://127.0.0.1:8000 > /dev/null; do sleep 1; done'
           php artisan dusk
