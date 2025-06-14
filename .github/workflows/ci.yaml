@@ -15,7 +15,7 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: 1
+          MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: budget
           MYSQL_USER: root
           MYSQL_PASSWORD: helloworld123
