@@ -20,13 +20,13 @@ jobs:
         with:
           php-version: "8.2"
 
+      - uses: actions/checkout@v4
       - name: Install Composer
         run: composer install --no-dev --no-interaction
 
       - name: Install npm
         run: npm install && npm run build
 
-      - uses: actions/checkout@v4
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
 
