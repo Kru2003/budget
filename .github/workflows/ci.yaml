@@ -38,7 +38,7 @@ jobs:
       - name: Install Composer
         run: composer install
 
-      - name: Installion command
+      - name: Install node dependencies
         run: php artisan budget:install
 
       - name: Copy .env
@@ -48,4 +48,5 @@ jobs:
         run: php artisan migrate --force
 
       - name: Run tests
-        run: ./vendor/bin/phpunit
+        run: php artisan test
+        # run: ./vendor/bin/phpunit
