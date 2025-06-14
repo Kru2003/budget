@@ -19,7 +19,7 @@ jobs:
           php-version: "8.2"
 
       - name: Install Composer
-        run: composer install --no-dev -o 
+        run: composer install
 
       - name: Installion command
         run: php artisan budget:install
