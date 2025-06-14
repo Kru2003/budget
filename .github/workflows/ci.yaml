@@ -27,9 +27,5 @@ jobs:
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
 
-      # - name: Generate App Key
-      #   run: php artisan key:generate
-
       - name: Run tests
-        run: php artisan make:test
-        working-directory: ${{ github.workspace }}
+        run: ./vendor/bin/phpunit
