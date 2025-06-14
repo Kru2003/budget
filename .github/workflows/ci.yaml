@@ -24,9 +24,6 @@ jobs:
       - name: Installion command
         run: php artisan budget:install
 
-      - name: Update
-        run: php artisan budget:update
-
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
 
@@ -34,5 +31,5 @@ jobs:
       #   run: php artisan key:generate
 
       - name: Run tests
-        run: php artisan test
+        run: php artisan make:test
         working-directory: ${{ github.workspace }}
