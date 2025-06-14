@@ -15,7 +15,7 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: helloworld123
           MYSQL_DATABASE: budget
           MYSQL_USER: root
           MYSQL_PASSWORD: helloworld123
@@ -47,7 +47,7 @@ jobs:
         run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
 
       - name: Migrate database
-        run: php artisan migrate
+        run: php artisan migrate --force
 
       - name: Run tests
         run: ./vendor/bin/phpunit
