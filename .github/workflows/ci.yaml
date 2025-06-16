@@ -18,6 +18,13 @@ jobs:
         with:
           php-version: "8.2"
 
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('composer.lock') }}
+          restore-keys: composer-
+
       - name: Install Composer
         run: composer install
 
@@ -51,6 +58,13 @@ jobs:
         with:
           php-version: "8.2"
 
+      - name: Restore Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('composer.lock') }}
+          restore-keys: composer-
+
       - name: Install Composer
         run: composer install
 
@@ -73,5 +87,5 @@ jobs:
         run: |
           php artisan dusk:chrome-driver --detect
           ./vendor/laravel/dusk/bin/chromedriver-linux --port=9515 &
-          php artisan serve &
+          php artisan serve --host=0.0.0.0 --port=8000 &
           php artisan dusk
