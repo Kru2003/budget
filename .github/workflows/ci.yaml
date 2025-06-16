@@ -73,5 +73,5 @@ jobs:
         run: |
           php artisan dusk:chrome-driver --detect
           ./vendor/laravel/dusk/bin/chromedriver-linux --port=9515 &
-          php artisan serve --host=0.0.0.0 --port=8000 &
+          php artisan serve &
           php artisan dusk
