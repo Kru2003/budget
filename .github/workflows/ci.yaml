@@ -55,6 +55,6 @@ jobs:
       - name: Run browser tests
         run: |
           php artisan dusk:chrome-driver --detect
-          ./vendor/laravel/dusk/bin/chromedriver-linux &
+          ./vendor/laravel/dusk/bin/chromedriver-linux --port=9515 &
           php artisan serve --no-reload &
           php artisan dusk
