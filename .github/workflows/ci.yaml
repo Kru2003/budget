@@ -97,4 +97,4 @@ jobs:
           context: .
           file: ./docker/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/budget:1.0
+          tags: krupanshi20/budget:1.0
