@@ -94,6 +94,6 @@ jobs:
       - name: Build and Push docker image
         uses: docker/build-push-action@v6
         with:
-          context: ./docker
+          context: .
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/budget:1.0
