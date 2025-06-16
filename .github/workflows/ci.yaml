@@ -53,6 +53,9 @@ jobs:
         run: ./vendor/bin/phpunit
 
       - name: Run browser tests
+        env:
+          APP_URL: http://127.0.0.1:8000
+          DUSK_DRIVER_URL: http://localhost:9515
         run: |
           php artisan dusk:chrome-driver --detect
           ./vendor/laravel/dusk/bin/chromedriver-linux --port=9515 &
