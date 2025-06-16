@@ -91,12 +91,9 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
-      - name: checking working directory
-        run: pwd && tree
-
       - name: Build and Push docker image
         uses: docker/build-push-action@v6
         with:
-          context: ./docker/Dockerfile
+          context: ./docker
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/budget:1.0
