@@ -1,4 +1,4 @@
-name: Laravel
+name: Budget-tests
 
 on:
   push:
@@ -6,9 +6,8 @@ on:
   pull_request:
     branches: [main]
 
-
 jobs:
-  laravel-tests:
+  tests:
     runs-on: ubuntu-latest
 
     services:
@@ -42,7 +41,7 @@ jobs:
         run: php artisan budget:install
 
       - name: Run PHPCS
-        run: ./vendor/bin/phpcs 
+        run: ./vendor/bin/phpcs
 
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
@@ -53,9 +52,9 @@ jobs:
       - name: Run tests
         run: ./vendor/bin/phpunit
 
-      # check this part
-      # - name: Run browser tests
-      #   run: |
-      #     php artisan dusk:chrome-driver --detect
-      #     ./vendor/laravel/dusk/bin/chromedriver-linux --port=9515 &
-      #     php artisan dusk
+      - name: Run browser tests
+        run: |
+          php artisan dusk:chrome-driver --detect
+          ./vendor/laravel/dusk/bin/chromedriver-linux &
+          php artisan serve --no-reload &
+          php artisan dusk
