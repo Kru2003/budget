@@ -83,7 +83,7 @@ jobs:
               with:
                   images: ${{ secrets.DOCKER_USERNAME }}/budget
                   tags: |
-                      type=raw,{{branch}}-{{sha}}-{{date +%s}}
+                      type=raw,{{branch}}-{{sha}}-{{date 'X'}}
 
             - name: Build and Push docker image
               uses: docker/build-push-action@v6
