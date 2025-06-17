@@ -91,4 +91,4 @@ jobs:
                   context: .
                   file: ./docker/Dockerfile
                   push: true
-                  tags: budget:${{ steps.meta.outputs.tags }}
+                  tags: ${{ steps.meta.outputs.tags }}
