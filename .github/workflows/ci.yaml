@@ -10,22 +10,18 @@ jobs:
     tests:
         runs-on: ubuntu-latest
 
-        services:
-            mysql:
-                image: mysql:8.0
-                env:
-                    MYSQL_ROOT_PASSWORD: ${{ secrets.APP_DATABASE_PASSWORD }}
-                    MYSQL_DATABASE: ${{ secrets.APP_DATABASE }}
-                ports:
-                    - 3306:3306
+        # services:
+        #     mysql:
+        #         image: mysql:8.0
+        #         env:
+        #             MYSQL_ROOT_PASSWORD: ${{ secrets.APP_DATABASE_PASSWORD }}
+        #             MYSQL_DATABASE: ${{ secrets.APP_DATABASE }}
+        #         ports:
+        #             - 3306:3306
 
         env:
-            DB_CONNECTION: mysql
-            DB_HOST: 127.0.0.1
-            DB_PORT: 3306
-            DB_DATABASE: ${{ secrets.APP_DATABASE }}
-            DB_USERNAME: root
-            DB_PASSWORD: ${{ secrets.APP_DATABASE_PASSWORD }}
+            DB_CONNECTION: sqlite
+            DB_DATABASE: database/database.sqlite
 
         steps:
             - uses: actions/checkout@v4
@@ -46,20 +42,25 @@ jobs:
             - name: Copy .env
               run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
 
-            - name: Migrate database
-              run: php artisan migrate --force
+            - name: Create SQLite database file
+              run: |
+                  mkdir -p database
+                  touch database/database.sqlite
+
+            # - name: Migrate database
+            #   run: php artisan migrate --force
 
             - name: Run tests
               run: ./vendor/bin/phpunit
 
             - name: Run browser tests
-              # env:
-              #     APP_URL: http://127.0.0.1:8000
-              #     DUSK_DRIVER_URL: http://localhost:9515
+              env:
+                  APP_URL: http://127.0.0.1:8000
+                  DUSK_DRIVER_URL: http://localhost:9515
               run: |
                   php artisan dusk:chrome-driver --detect
-                  ./vendor/laravel/dusk/bin/chromedriver-linux --port=9515
-                  php artisan serve
+                  ./vendor/laravel/dusk/bin/chromedriver-linux --port=9515 &
+                  php artisan serve &
                   php artisan dusk
 
     # image-build:
