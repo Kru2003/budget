@@ -95,7 +95,6 @@ jobs:
                   images: ${{ secrets.DOCKER_USERNAME }}/budget
                   tags: |
                       type=raw,{{branch}}-{{sha}}-{{date 'X'}}
-                      type=raw.{{sha}}-{{date 'X'}}
 
             - name: Build and Push docker image
               if: ${{ github.event_name == 'push' }}
