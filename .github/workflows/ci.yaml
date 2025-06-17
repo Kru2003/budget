@@ -79,7 +79,13 @@ jobs:
 
             - name: Generate Docker tag
               id: meta
-              run: echo "tag=${{ github.ref_name }}-${{ github.sha }}-${{ date 'YYYYMMDD' }}" >> GITHUB_OUTPUT
+              uses: docker/metadata-action@v5
+              with:
+                  images: |
+                      ${{ secrets.DOCKER_USERNAME }}/budget
+                  tags: |
+                      type=ref,event=branch
+                      type=sha
 
             - name: Build and Push docker image
               uses: docker/build-push-action@v6
@@ -87,4 +93,4 @@ jobs:
                   context: .
                   file: ./docker/Dockerfile
                   push: true
-                  tags: budget:${{ steps.meta.outputs.tag }}
+                  tags: budget:${{ steps.meta.outputs.tags }}
