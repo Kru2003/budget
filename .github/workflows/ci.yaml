@@ -80,17 +80,26 @@ jobs:
                   password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
             - name: Generate Docker tag
+              if: github.event_name == 'push'
               id: meta
               uses: docker/metadata-action@v5
               with:
                   images: ${{ secrets.DOCKER_USERNAME }}/budget
                   tags: |
-                      type=raw,{{branch | default('main')}}-{{sha}}-{{date 'X'}}
+                      type=raw,{{branch}}-{{sha}}-{{date 'X'}}
+
+            - name: Only build
+              if: ${{ github.event_name == 'pull' }}
+              uses: docker/build-push-action@v4
+              with:
+                  context: .
+                  push: false
 
             - name: Build and Push docker image
+              if: ${{ github.event_name == 'push' }}
               uses: docker/build-push-action@v6
               with:
                   context: .
                   file: ./docker/Dockerfile
-                  push: ${{ github.event_name == 'push' }}
+                  push: true
                   tags: ${{ steps.meta.outputs.tags }}
