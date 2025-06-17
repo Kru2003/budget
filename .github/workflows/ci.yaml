@@ -81,10 +81,9 @@ jobs:
               id: meta
               uses: docker/metadata-action@v5
               with:
+                  images: ${{ secrets.DOCKER_USERNAME }}/budget
                   tags: |
-                      type=ref,event=branch,suffix=-
-                      type=sha,format=short,suffix=-
-                      type=semver,format={{date "%Y%m%dT%H%M%S"}},suffix=
+                      type=raw,{{branch}}-{{sha}}-{{date +%s}}
 
             - name: Build and Push docker image
               uses: docker/build-push-action@v6
