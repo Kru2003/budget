@@ -77,12 +77,9 @@ jobs:
                   username: ${{ secrets.DOCKER_USERNAME }}
                   password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
-            - name: for date
-              run: date --help
-
             - name: Generate Docker tag
               id: meta
-              run: echo "tag=${{ github.ref_name }}-${{ github.sha }}-$(date + `%Y%m%d%h%M%S`)" >> GITHUB_OUTPUT
+              run: echo "tag=${{ github.ref_name }}-${{ github.sha }}-$(date +'%Y%m%d%H%M%S')" >> GITHUB_OUTPUT
 
             - name: Build and Push docker image
               uses: docker/build-push-action@v6
