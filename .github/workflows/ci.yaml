@@ -82,9 +82,9 @@ jobs:
               uses: docker/metadata-action@v5
               with:
                   tags: |
-                      type=ref,event=branch,prefix=,suffix=-
-                      type=sha,suffix=-
-                      type=timestamp,format=%Y%m%d%H%M%S
+                      type=ref,event=branch,suffix=-
+                      type=sha,format=short,suffix=-
+                      type=semver,format={{date "%Y%m%dT%H%M%S"}},suffix=
 
             - name: Build and Push docker image
               uses: docker/build-push-action@v6
