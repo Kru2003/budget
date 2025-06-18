@@ -88,15 +88,15 @@ jobs:
                   tags: |
                       type=raw,{{branch}}-{{sha}}-{{date 'X'}}
 
-            # caches docker layers for a particular workflow in /tmp/.buildx-cache
-            - name: Cache Docker layers
-              uses: actions/cache@v4
-              with:
-                  path: /tmp/.buildx-cache
-                  key: ${{ runner.os }}-docker-${{ github.ref }}-${{ hashFiles('docker/Dockerfile') }}
-                  restore-keys: |
-                      ${{ runner.os }}-docker-${{ github.ref }}-
-                      ${{ runner.os }}-docker-
+            # # caches docker layers for a particular workflow in /tmp/.buildx-cache
+            # - name: Cache Docker layers
+            #   uses: actions/cache@v4
+            #   with:
+            #       path: /tmp/.buildx-cache
+            #       key: ${{ runner.os }}-docker-${{ github.ref }}-${{ hashFiles('docker/Dockerfile') }}
+            #       restore-keys: |
+            #           ${{ runner.os }}-docker-${{ github.ref }}-
+            #           ${{ runner.os }}-docker-
 
             - name: Build and Push docker image
               uses: docker/build-push-action@v6
@@ -105,5 +105,5 @@ jobs:
                   file: ./docker/Dockerfile
                   push: ${{ github.event_name == 'push' }}
                   tags: ${{ steps.meta.outputs.tags }}
-                  cache-from: type=local,src=/tmp/.buildx-cache
-                  cache-to: type=local,dest=/tmp/.buildx-cache
+                  cache-from: type=gha
+                  cache-to: type=gha
