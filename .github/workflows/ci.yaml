@@ -77,7 +77,7 @@ jobs:
               uses: actions/cache@v4
               with:
                   path: /tmp/.buildx-cache
-                  key: ${{ runner.os }}-docker-${{ github.ref }}-{{ checksum "docker/Dockerfile" }}
+                  key: ${{ runner.os }}-docker-${{ github.ref }}-${{ hashFiles('docker/Dockerfile') }}
                   restore-keys: |
                       ${{ runner.os }}-docker-${{ github.ref }}-
                       ${{ runner.os }}-docker-
