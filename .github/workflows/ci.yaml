@@ -88,6 +88,7 @@ jobs:
                   tags: |
                       type=raw,{{branch}}-{{sha}}-{{date 'X'}}
 
+            # this step will cache the image layers, build the image and push the image if event is push main
             - name: Build and Push docker image
               uses: docker/build-push-action@v6
               with:
